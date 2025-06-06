@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>upload-file</title>
+    <script>        function uploadFile(event) {
+        event.preventDefault();
+
+        const formData = new FormData(document.querySelector("form"));
+        fetch("/upload", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("result").innerText = "result:" + data;
+            })
+            .catch(error => {
+                document.getElementById("result").innerText = "error:" + error;
+            });
+    }
+    </script>
+</head>
+<body>
+<h2>upload-file</h2>
+<form onsubmit="uploadFile(event)">
+    <input type="file" name="file" />
+    <button type="submit">upload</button>
+</form>
+
+<p id="result"></p>
+</body>
+</html>
