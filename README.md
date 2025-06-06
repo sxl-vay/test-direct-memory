@@ -3,7 +3,7 @@
 > start this project,Accessing in browser  http://localhost:8080 and upload a file many times.When you have completed the file upload,you can see the memory usage,Just like the picture below
 
 ![img.png](img.png)<br/>
-upload file where call this method and trouble maker is `file.getInputStream()`
+upload file where call the below method, and trouble maker is `file.getInputStream()`
 ```java
 @PostMapping("/upload")
     public String uplaod(@RequestPart("file") MultipartFile file) throws IOException {
