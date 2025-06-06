@@ -21,6 +21,8 @@ public class TestController {
     @PostMapping("/upload")
     public String uplaod(@RequestPart("file") MultipartFile file) throws IOException {
         InputStream inputStream = file.getInputStream();
+        // trouble maker
+        byte[] bytes = file.getBytes();
 
         try {
             inputStream.readAllBytes();
@@ -28,7 +30,6 @@ public class TestController {
             inputStream.close();
             System.gc();
         }
-        // 通过BufferPoolMXBean监控
         BufferPoolMXBean directBufferPool = ManagementFactory
                 .getPlatformMXBeans(BufferPoolMXBean.class)
                 .stream()
@@ -39,7 +40,6 @@ public class TestController {
         if (directBufferPool != null) {
             return String.format("DirectBuffer memoryUsed=%dMB%n",
                     directBufferPool.getMemoryUsed() / 1024 / 1024);
-
         }
         return "DirectBuffer: not found";
     }
