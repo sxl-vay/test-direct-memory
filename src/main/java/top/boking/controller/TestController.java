@@ -20,22 +20,15 @@ public class TestController {
 
     @PostMapping("/upload")
     public String uplaod(@RequestPart("file") MultipartFile file) throws IOException {
-        InputStream inputStream = file.getInputStream();
         // trouble maker
         byte[] bytes = file.getBytes();
-
-        try {
-            inputStream.readAllBytes();
-        } finally {
-            inputStream.close();
-            System.gc();
-        }
         BufferPoolMXBean directBufferPool = ManagementFactory
                 .getPlatformMXBeans(BufferPoolMXBean.class)
                 .stream()
                 .filter(b -> b.getName().equals("direct"))
                 .findFirst()
                 .orElse(null);
+        System.out.println("directBufferPool = " + directBufferPool);
 
         if (directBufferPool != null) {
             return String.format("DirectBuffer memoryUsed=%dMB%n",

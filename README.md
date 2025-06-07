@@ -7,16 +7,8 @@ upload file where call the below method, and trouble maker is `file.getInputStre
 ```java
 @PostMapping("/upload")
     public String uplaod(@RequestPart("file") MultipartFile file) throws IOException {
-        InputStream inputStream = file.getInputStream();
         // trouble maker
         byte[] bytes = file.getBytes();
-
-        try {
-            inputStream.readAllBytes();
-        } finally {
-            inputStream.close();
-            System.gc();
-        }
         BufferPoolMXBean directBufferPool = ManagementFactory
                 .getPlatformMXBeans(BufferPoolMXBean.class)
                 .stream()
